@@ -213,3 +213,32 @@ a:hover {
     background-color: #ffffff; /* FIX V9: Beri background putih agar area gambar jelas */
 }
 
+.status-form {
+    min-width: 180px;
+}
+.status-select {
+    border-radius: 50px !important; /* Membuatnya terlihat seperti badge */
+    font-weight: 500;
+    padding: 0.35em 0.65em !important;
+    text-align: center;
+}
+
+.status-pencarian {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+}
+
+.status-ditemukan {
+    background-color: #198754 !important; /* Hijau */
+    color: white !important;
+    border-color: #198754 !important;
+}
+
+/* Style untuk badge non-interaktif */
+.badge.status-pencarian, .badge.status-ditemukan {
+     border-radius: 50px;
+     padding: 0.5em 0.8em;
+     font-size: 0.85em;
+}
+

@@ -16,10 +16,11 @@ class Laporan {
     }
 
     // Mengambil data kabupaten berdasarkan ID Provinsi
-    public function getKabupatenByProvinsi($id_prov){
-        $this->db->query("SELECT * FROM kabupaten WHERE id_prov = :id_prov ORDER BY nama_kab ASC");
-        $this->db->bind(':id_prov', $id_prov);
-        return $this->db->resultSet();
+    public function getKabupatenByProvinsi($prov_id){
+        $this->db->query("SELECT * FROM kabupaten WHERE id_prov = :prov_id ORDER BY nama_kab ASC");
+        $this->db->bind(':prov_id', $prov_id);
+        $results = $this->db->resultSet();
+        return $results;
     }
 
     // Menyimpan laporan baru ke database
@@ -118,6 +119,24 @@ class Laporan {
         $this->db->bind(':kronologi', $data['kronologi']);
         $this->db->bind(':ciri_ciri', $data['ciri_ciri']);
         $this->db->bind(':foto', $data['foto']);
+
+        // Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // app/models/Laporan.php
+
+// ... (method-method yang sudah ada) ...
+
+// Method baru untuk mengubah status laporan
+    public function updateStatus($id, $status){
+        $this->db->query('UPDATE laporan_orang_hilang SET status_laporan = :status WHERE id = :id');
+        $this->db->bind(':status', $status);
+        $this->db->bind(':id', $id);
 
         // Execute
         if($this->db->execute()){

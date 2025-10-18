@@ -239,4 +239,36 @@ class Lapor {
             $this->loadView('lapor/edit', $data);
         }
     }
+
+    // app/controllers/Lapor.php
+
+// ... (method-method yang sudah ada) ...
+
+// Method baru untuk mengubah status
+    public function ubahStatus($id){
+        // Pastikan request adalah POST
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // Ambil data laporan untuk verifikasi pemilik
+            $laporan = $this->laporanModel->getLaporanById($id);
+
+            // PENTING: Pastikan hanya pemilik laporan yang bisa mengubah status
+            if($laporan->user_id != $_SESSION['user_id']){
+                redirect('lapor/lihat');
+            }
+
+            // Ambil status baru dari form
+            $status_baru = $_POST['status'];
+
+            // Minta model untuk update status di database
+            if($this->laporanModel->updateStatus($id, $status_baru)){
+                // Jika berhasil, kembalikan ke halaman daftar laporan
+                redirect('lapor/lihat');
+            } else {
+                die('Gagal mengubah status.');
+            }
+
+        } else {
+            redirect('lapor/lihat');
+        }
+    }
 }
