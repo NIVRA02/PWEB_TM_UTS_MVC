@@ -1,5 +1,5 @@
 <?php
-// app/models/Laporan.php
+
 require_once '../app/Database.php';
 
 class Laporan {
@@ -9,13 +9,13 @@ class Laporan {
         $this->db = new Database;
     }
 
-    // Mengambil semua data provinsi
+
     public function getProvinsi(){
         $this->db->query("SELECT * FROM provinsi ORDER BY nama_prov ASC");
         return $this->db->resultSet();
     }
 
-    // Mengambil data kabupaten berdasarkan ID Provinsi
+
     public function getKabupatenByProvinsi($prov_id){
         $this->db->query("SELECT * FROM kabupaten WHERE id_prov = :prov_id ORDER BY nama_kab ASC");
         $this->db->bind(':prov_id', $prov_id);
@@ -23,13 +23,13 @@ class Laporan {
         return $results;
     }
 
-    // Menyimpan laporan baru ke database
+
     public function tambahLaporan($data){
         $this->db->query('INSERT INTO laporan_orang_hilang 
             (user_id, nama_lengkap, umur, jenis_kelamin, provinsi_id, kabupaten_id, kronologi, ciri_ciri, foto, tanda_tangan) 
             VALUES (:user_id, :nama_lengkap, :umur, :jenis_kelamin, :provinsi_id, :kabupaten_id, :kronologi, :ciri_ciri, :foto, :tanda_tangan)');
 
-        // Bind values
+
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':nama_lengkap', $data['nama_lengkap']);
         $this->db->bind(':umur', $data['umur']);
@@ -41,7 +41,7 @@ class Laporan {
         $this->db->bind(':foto', $data['foto']);
         $this->db->bind(':tanda_tangan', $data['tanda_tangan']);
 
-        // Execute
+
         if($this->db->execute()){
             return true;
         } else {
@@ -49,7 +49,7 @@ class Laporan {
         }
     }
 
-    // Mengambil semua laporan yang ada
+
     public function getAllLaporan(){
         $this->db->query('SELECT laporan_orang_hilang.*, users.name as pelapor, provinsi.nama_prov, kabupaten.nama_kab 
                          FROM laporan_orang_hilang
@@ -59,11 +59,7 @@ class Laporan {
                          ORDER BY laporan_orang_hilang.tanggal_lapor DESC');
         return $this->db->resultSet();
     }
-    // app/models/Laporan.php
 
-// ... (method-method yang sudah ada sebelumnya) ...
-
-// Method baru untuk mengambil satu laporan berdasarkan ID
     public function getLaporanById($id){
         $this->db->query('SELECT laporan_orang_hilang.*, users.name as pelapor, provinsi.nama_prov, kabupaten.nama_kab 
                         FROM laporan_orang_hilang
@@ -75,16 +71,12 @@ class Laporan {
         return $this->db->single();
     }
 
-    // app/models/Laporan.php
 
-// ... (method-method yang sudah ada) ...
-
-// Method baru untuk menghapus laporan
     public function deleteLaporan($id){
         $this->db->query('DELETE FROM laporan_orang_hilang WHERE id = :id');
         $this->db->bind(':id', $id);
         
-        // Execute
+
         if($this->db->execute()){
             return true;
         } else {
@@ -92,11 +84,7 @@ class Laporan {
         }
     }
 
-    // app/models/Laporan.php
 
-// ... (method-method yang sudah ada) ...
-
-// Method baru untuk mengupdate laporan
     public function updateLaporan($data){
         $this->db->query('UPDATE laporan_orang_hilang SET 
                             nama_lengkap = :nama_lengkap, 
@@ -109,7 +97,7 @@ class Laporan {
                             foto = :foto 
                             WHERE id = :id');
         
-        // Bind values
+
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':nama_lengkap', $data['nama_lengkap']);
         $this->db->bind(':umur', $data['umur']);
@@ -120,7 +108,7 @@ class Laporan {
         $this->db->bind(':ciri_ciri', $data['ciri_ciri']);
         $this->db->bind(':foto', $data['foto']);
 
-        // Execute
+
         if($this->db->execute()){
             return true;
         } else {
@@ -128,17 +116,13 @@ class Laporan {
         }
     }
 
-    // app/models/Laporan.php
 
-// ... (method-method yang sudah ada) ...
-
-// Method baru untuk mengubah status laporan
     public function updateStatus($id, $status){
         $this->db->query('UPDATE laporan_orang_hilang SET status_laporan = :status WHERE id = :id');
         $this->db->bind(':status', $status);
         $this->db->bind(':id', $id);
 
-        // Execute
+
         if($this->db->execute()){
             return true;
         } else {
