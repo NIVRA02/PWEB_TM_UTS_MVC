@@ -8,21 +8,21 @@
             <p>Silakan isi semua data yang diperlukan di bawah ini.</p>
             <form action="<?php echo URLROOT; ?>/lapor/tambah" method="post" enctype="multipart/form-data">
                 
-                <!-- Nama Lengkap -->
+
                 <div class="form-group mb-3">
                     <label for="nama_lengkap" class="form-label">Nama Lengkap Orang Hilang: <sup>*</sup></label>
                     <input type="text" name="nama_lengkap" class="form-control <?php echo (!empty($data['nama_lengkap_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['nama_lengkap']; ?>">
                     <span class="invalid-feedback"><?php echo $data['nama_lengkap_err']; ?></span>
                 </div>
 
-                <!-- Umur -->
+
                 <div class="form-group mb-3">
                     <label for="umur" class="form-label">Umur (Tahun): <sup>*</sup></label>
                     <input type="number" name="umur" class="form-control <?php echo (!empty($data['umur_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['umur']; ?>">
                     <span class="invalid-feedback"><?php echo $data['umur_err']; ?></span>
                 </div>
 
-                <!-- Jenis Kelamin -->
+
                 <div class="form-group mb-3">
                     <label class="form-label">Jenis Kelamin: <sup>*</sup></label>
                     <div>
@@ -38,7 +38,7 @@
                      <div class="text-danger" style="font-size: 0.875em;"><?php echo $data['jenis_kelamin_err']; ?></div>
                 </div>
 
-                <!-- Lokasi -->
+
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="provinsi" class="form-label">Provinsi Terakhir Terlihat: <sup>*</sup></label>
@@ -59,27 +59,27 @@
                     </div>
                 </div>
 
-                <!-- Kronologi -->
+
                 <div class="form-group mb-3">
                     <label for="kronologi" class="form-label">Kronologi Kejadian: <sup>*</sup></label>
                     <textarea name="kronologi" class="form-control <?php echo (!empty($data['kronologi_err'])) ? 'is-invalid' : ''; ?>" rows="4" placeholder="Jelaskan secara singkat bagaimana orang tersebut hilang..."><?php echo $data['kronologi']; ?></textarea>
                     <span class="invalid-feedback"><?php echo $data['kronologi_err']; ?></span>
                 </div>
 
-                <!-- Ciri-ciri -->
+
                 <div class="form-group mb-3">
                     <label for="ciri_ciri" class="form-label">Ciri-ciri Fisik / Pakaian Terakhir:</label>
                     <textarea name="ciri_ciri" class="form-control" rows="3" placeholder="Contoh: Tinggi 170cm, rambut ikal, menggunakan kemeja biru..."><?php echo $data['ciri_ciri']; ?></textarea>
                 </div>
                 
-                <!-- Foto -->
+
                 <div class="form-group mb-3">
                     <label for="foto" class="form-label">Foto Orang Hilang (Jelas): <sup>*</sup></label>
                     <input type="file" name="foto" class="form-control <?php echo (!empty($data['foto_err'])) ? 'is-invalid' : ''; ?>" accept="image/*">
                     <span class="invalid-feedback"><?php echo $data['foto_err']; ?></span>
                 </div>
 
-                <!-- Tanda Tangan -->
+
                 <div class="form-group mb-3">
                     <label for="signature-pad" class="form-label text-center d-block">Tanda Tangan Pelapor: <sup>*</sup></label>
                     <div class="d-flex flex-column align-items-center">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                <!-- Persetujuan -->
+
                 <div class="form-check mb-4">
                     <input class="form-check-input" type="checkbox" value="" id="persetujuan" required>
                     <label class="form-check-label" for="persetujuan">
@@ -108,7 +108,7 @@
 
 <?php require APPROOT . '/app/views/inc/footer.php'; ?>
 
-<!-- Sisa script JavaScript tetap sama -->
+
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {

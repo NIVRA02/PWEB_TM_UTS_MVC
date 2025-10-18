@@ -44,9 +44,9 @@
                                     }
                                 ?>
 
-                                <!-- Cek apakah user adalah pemilik laporan -->
+
                                 <?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $lpr->user_id): ?>
-                                    <!-- Jika PEMILIK, tampilkan form dropdown -->
+
                                     <form action="<?php echo URLROOT; ?>/lapor/ubahStatus/<?php echo $lpr->id; ?>" method="post" class="status-form">
                                         <select name="status" class="form-select status-select <?php echo $statusClass; ?>" onchange="this.form.submit()">
                                             <option value="Dalam Pencarian" <?php echo ($lpr->status_laporan == 'Dalam Pencarian') ? 'selected' : ''; ?>>Dalam Pencarian</option>
@@ -55,7 +55,7 @@
                                         </select>
                                     </form>
                                 <?php else: ?>
-                                    <!-- Jika BUKAN PEMILIK, tampilkan sebagai badge biasa -->
+
                                     <span class="badge <?php echo $statusClass; ?>"><?php echo $lpr->status_laporan; ?></span>
                                 <?php endif; ?>
                             </td>

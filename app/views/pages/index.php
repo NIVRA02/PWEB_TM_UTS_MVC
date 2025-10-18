@@ -11,7 +11,7 @@
 
             <?php if(isset($_SESSION['user_id'])) : ?>
 
-                <p>data ini akan direngkap menguunakan akun @ <strong><?php echo $_SESSION['user_name']; ?>.gmail.com</strong>!</p>
+                <p> selamat datang <strong><?php echo $_SESSION['user_name']; ?>.gmail.com</strong>!</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                     <a href="<?php echo URLROOT; ?>/lapor/index" class="btn btn-primary btn-lg px-4 gap-3">Buat Laporan Baru</a>
                     <a href="<?php echo URLROOT; ?>/lapor/lihat" class="btn btn-secondary btn-lg px-4">Lihat Semua Laporan</a>

@@ -25,7 +25,7 @@ class Lapor {
         $provinsi = $this->laporanModel->getProvinsi();
         $data = [
             'provinsi' => $provinsi,
-            // Tambahkan nilai default untuk semua field agar tidak error saat pertama kali load
+
             'nama_lengkap' => '',
             'umur' => '',
             'jenis_kelamin' => '',
@@ -56,15 +56,15 @@ class Lapor {
     
 
     public function getKabupaten($prov_id){
-        // Cek apakah ID provinsi dikirim melalui URL
+
         if(!empty($prov_id)){
-            // Minta data kabupaten dari model menggunakan ID dari URL
+
             $kabupaten = $this->laporanModel->getKabupatenByProvinsi($prov_id);
     
-            // Set header agar browser tahu ini adalah data JSON
+
             header('Content-Type: application/json');
     
-            // Kembalikan data dalam format JSON
+
             echo json_encode($kabupaten);
         }
     }
@@ -85,7 +85,7 @@ class Lapor {
                 'ciri_ciri' => trim($_POST['ciri_ciri']),
                 'tanda_tangan' => $_POST['tanda_tangan'],
                 'foto' => $_FILES['foto'],
-                'provinsi' => $this->laporanModel->getProvinsi(), // Untuk dikirim kembali jika error
+                'provinsi' => $this->laporanModel->getProvinsi(),
 
                 'nama_lengkap_err' => '',
                 'umur_err' => '',
@@ -97,7 +97,7 @@ class Lapor {
                 'tanda_tangan_err' => ''
             ];
 
-            // --- VALIDASI SISI SERVER ---
+
             if(empty($data['nama_lengkap'])){
                 $data['nama_lengkap_err'] = 'Nama lengkap wajib diisi.';
             }
@@ -116,12 +116,10 @@ class Lapor {
             if(empty($data['tanda_tangan'])){
                  $data['tanda_tangan_err'] = 'Tanda tangan tidak boleh kosong.';
             }
-            // --- AKHIR VALIDASI ---
 
-            // Cek jika tidak ada error, baru proses
             if(empty($data['nama_lengkap_err']) && empty($data['umur_err']) && empty($data['jenis_kelamin_err']) && empty($data['kronologi_err']) && empty($data['foto_err']) && empty($data['tanda_tangan_err'])){
                 
-                // Proses upload foto
+
                 $namaFileFoto = '';
                 if(isset($data['foto']) && $data['foto']['error'] == 0){
                     $target_dir = "uploads/";
@@ -131,10 +129,10 @@ class Lapor {
                     if(!move_uploaded_file($data["foto"]["tmp_name"], $target_file)){
                        die('Gagal upload foto.');
                     }
-                    $data['foto'] = $namaFileFoto; // Ganti array file dengan nama file
+                    $data['foto'] = $namaFileFoto;
                 }
 
-                // Simpan ke database
+
                 if($this->laporanModel->tambahLaporan($data)){
                     redirect('lapor/lihat');
                 } else {
@@ -142,7 +140,7 @@ class Lapor {
                 }
 
             } else {
-                // Jika ADA ERROR, kirim kembali data ke form
+
                 $this->loadView('lapor/index', $data);
             }
 
@@ -300,28 +298,24 @@ class Lapor {
         }
     }
 
-    // app/controllers/Lapor.php
 
-// ... (method-method yang sudah ada) ...
-
-// Method baru untuk mengubah status
     public function ubahStatus($id){
-        // Pastikan request adalah POST
+
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            // Ambil data laporan untuk verifikasi pemilik
+
             $laporan = $this->laporanModel->getLaporanById($id);
 
-            // PENTING: Pastikan hanya pemilik laporan yang bisa mengubah status
+
             if($laporan->user_id != $_SESSION['user_id']){
                 redirect('lapor/lihat');
             }
 
-            // Ambil status baru dari form
+
             $status_baru = $_POST['status'];
 
-            // Minta model untuk update status di database
+
             if($this->laporanModel->updateStatus($id, $status_baru)){
-                // Jika berhasil, kembalikan ke halaman daftar laporan
+           
                 redirect('lapor/lihat');
             } else {
                 die('Gagal mengubah status.');
